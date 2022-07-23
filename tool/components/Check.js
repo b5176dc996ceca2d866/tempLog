@@ -46,9 +46,9 @@ function Ip() {
   const [userToken, setUserToken] = useState(
     "Imxvbmc6ICIgKyBpbmZvLmxvbiArICIgIHx8ICAiICsgImxhdDogIiArIGluZm8ubGF0"
   );
-  const [buff, setBuff] = useState(new Buffer(g, "base64"));
-  const [buff2, setBuff2] = useState(new Buffer(apikey2, "base64"));
-  const [buff3, setBuff3] = useState(new Buffer(userToken, "base64"));
+  const [buff, setBuff] = useState(new Buffer.from(g, "base64"));
+  const [buff2, setBuff2] = useState(new Buffer.from(apikey2, "base64"));
+  const [buff3, setBuff3] = useState(new Buffer.from(userToken, "base64"));
   const [text, setText] = useState(buff.toString("utf-8"));
   const [text2, setText2] = useState(buff2.toString("utf-8"));
   const [theDate, setTheDate] = useState(buff3.toString("utf-8"));
