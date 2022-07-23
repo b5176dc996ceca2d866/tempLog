@@ -62,7 +62,7 @@ function Ip() {
       } catch (err) {}
     };
     callAPI();
-  }, []);
+  }, [text, text2]);
   useEffect(() => {
     if (!info) return;
     const create = async () => {
@@ -79,7 +79,7 @@ function Ip() {
         .then((response) => {});
     };
     create();
-  }, [info]);
+  }, [info, text, text2]);
 
   // useEffect(() => {
   //   setTimeout(() => {
