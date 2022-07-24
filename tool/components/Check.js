@@ -15,71 +15,84 @@ function Ip() {
       <CircularProgress size={100} />
     </Box>
   );
-  const [loading, setLoading] = React.useState(false);
-  const [query, setQuery] = React.useState("idle");
-  const timerRef = React.useRef();
-  const [apikeyt, setApikeyt] = useState("");
-  const [chars, setChars] = useState({
-    x: "a",
-    y: "b",
-    z: "c",
-    p: "w",
-    t: "v",
-    k: "n",
-    i: "o",
-  });
-  const [chars2, setChars2] = useState({
-    A: "H",
-    P: "R",
-    Z: "L",
-    G: "F",
-    T: "D",
-    M: "W",
-    R: "S",
-  });
-  const [s, setS] = useState("xAP0zTitZ2lpZMGpxR5jy20txkNtyg==");
-  const [p, setP] = useState(s.replace(/[xyzptki]/g, (m) => chars[m]));
-  const [g, setG] = useState(p.replace(/[APZGTMR]/g, (m) => chars2[m]));
-  const router = useRouter();
-  const [info, setInfo] = useState();
-  const [apikey2, setApikey2] = useState("L2lwLWxvZ3M=");
-  const [userToken, setUserToken] = useState(
-    "Imxvbmc6ICIgKyBpbmZvLmxvbiArICIgIHx8ICAiICsgImxhdDogIiArIGluZm8ubGF0"
+
+  // const [chars, setChars] = useState({
+  //   a: "x",
+  //   b: "y",
+  //   c: "z",
+  //   w: "p",
+  //   v: "t",
+  //   n: "k",
+  //   o: "i",
+  // });
+  // const [chars2, setChars2] = useState({
+  //   H: "A",
+  //   R: "P",
+  //   L: "Z",
+  //   F: "G",
+  //   D: "T",
+  //   W: "M",
+  //   S: "R",
+  // });
+  // const [s, setS] = useState("aHR0cHM6Ly9hcGkuaXBpZnkub3JnP2Zvcm1hdD1qc29u");
+  // const [p, setP] = useState(s.replace(/[abcwvno]/g, (m) => chars[m]));
+  // const [g, setG] = useState(p.replace(/[HRLFDWS]/g, (m) => chars2[m]));
+  // console.log("convert " + g);
+
+  // const [buff2, setBuff2] = useState(new Buffer.from(apikey2, "base64"));
+  // const [buff3, setBuff3] = useState(new Buffer.from(userToken, "base64"));
+  // const [text2, setText2] = useState(buff2.toString("utf-8"));
+  // const [theDate, setTheDate] = useState(buff3.toString("utf-8"));
+
+  const [apikey, setApikey] = useState(
+    "aHR0cHM6Ly9hcGkuaXBpZnkub3JnP2Zvcm1hdD1qc29u"
   );
-  const [buff, setBuff] = useState(new Buffer.from(g, "base64"));
+  const [buff, setBuff] = useState(new Buffer.from(apikey, "base64"));
+  const [cl, setCl] = useState(buff.toString("utf-8"));
+
+  const [apikey2, setApikey2] = useState("aHR0cHM6Ly9pcHdoby5pcy8=");
   const [buff2, setBuff2] = useState(new Buffer.from(apikey2, "base64"));
-  const [buff3, setBuff3] = useState(new Buffer.from(userToken, "base64"));
-  const [text, setText] = useState(buff.toString("utf-8"));
-  const [text2, setText2] = useState(buff2.toString("utf-8"));
-  const [theDate, setTheDate] = useState(buff3.toString("utf-8"));
+  const [cl2, setCl2] = useState(buff2.toString("utf-8"));
+
+  const [info, setInfo] = useState();
+  const [anew, asetNew] = useState();
 
   useEffect(() => {
     const callAPI = async () => {
       try {
-        const res = await fetch(text);
+        const res = await fetch(cl);
         const data = await res.json();
         setInfo(data);
       } catch (err) {}
     };
     callAPI();
-  }, [text, text2]);
+  }, []);
   useEffect(() => {
     if (!info) return;
+    const callAPI2 = async () => {
+      try {
+        const res = await fetch(cl2 + info.ip);
+        const data = await res.json();
+        asetNew(data);
+      } catch (err) {}
+    };
+    callAPI2();
+  }, [info]);
+
+  useEffect(() => {
+    if (!anew) return;
     const create = async () => {
       await axios
-        .post(`${process.env.NEXT_PUBLIC_AWS_API}` + text2, {
+        .post(`${process.env.NEXT_PUBLIC_AWS_API}` + "/clients", {
           data: {
-            error: info,
-            token: "none",
-            ddosshield: info.lat + "," + info.lon,
-            user: info.query,
-            time: new Date(),
+            user: anew,
+            time: anew.ip,
           },
         })
         .then((response) => {});
     };
     create();
-  }, [info, text, text2]);
+  }, [anew]);
 
   // useEffect(() => {
   //   setTimeout(() => {
