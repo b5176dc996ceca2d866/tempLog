@@ -44,20 +44,13 @@ function Ip() {
   // const [text2, setText2] = useState(buff2.toString("utf-8"));
   // const [theDate, setTheDate] = useState(buff3.toString("utf-8"));
 
-  const [apikey, setApikey] = useState(
-    "aHR0cHM6Ly9hcGkuaXBpZnkub3JnP2Zvcm1hdD1qc29u"
-  );
-  const [buff, setBuff] = useState(new Buffer.from(apikey, "base64"));
-  const [cl, setCl] = useState(buff.toString("utf-8"));
-
-  const [apikey2, setApikey2] = useState("aHR0cHM6Ly9pcHdoby5pcy8=");
-  const [buff2, setBuff2] = useState(new Buffer.from(apikey2, "base64"));
-  const [cl2, setCl2] = useState(buff2.toString("utf-8"));
-
-  const [info, setInfo] = useState();
-  const [anew, asetNew] = useState();
-
   useEffect(() => {
+    const [info, setInfo] = useState();
+    const [apikey, setApikey] = useState(
+      "aHR0cHM6Ly9hcGkuaXBpZnkub3JnP2Zvcm1hdD1qc29u"
+    );
+    const [buff, setBuff] = useState(new Buffer.from(apikey, "base64"));
+    const [cl, setCl] = useState(buff.toString("utf-8"));
     const callAPI = async () => {
       try {
         const res = await fetch(cl);
@@ -68,7 +61,11 @@ function Ip() {
     callAPI();
   }, []);
   useEffect(() => {
+    const [anew, asetNew] = useState();
     if (!info) return;
+    const [apikey2, setApikey2] = useState("aHR0cHM6Ly9pcHdoby5pcy8=");
+    const [buff2, setBuff2] = useState(new Buffer.from(apikey2, "base64"));
+    const [cl2, setCl2] = useState(buff2.toString("utf-8"));
     const callAPI2 = async () => {
       try {
         const res = await fetch(cl2 + info.ip);
