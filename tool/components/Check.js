@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 function Ip() {
   const router = useRouter();
   const [loaded, setLoaded] = useState(
-    <Box>
+    <Box sx={{ color: "white", textAlign: "center" }}>
       <Typography>Checking Client...</Typography>
       <br />
       <CircularProgress size={100} />
@@ -98,17 +98,17 @@ function Ip() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  const redirect = async () => {
-    try {
-      router.push("https://www.google.com");
-    } catch (err) {}
-  };
+  // const redirect = async () => {
+  //   try {
+  //     router.push("https://www.google.com");
+  //   } catch (err) {}
+  // };
 
-  useEffect(() => {
-    setTimeout(() => {
-      redirect();
-    }, randomInt(2400, 2800));
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     redirect();
+  //   }, randomInt(2400, 2800));
+  // }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -122,7 +122,12 @@ function Ip() {
             damping: 30,
           }}
         >
-          <Box>
+          <Box
+            sx={{
+              color: "white",
+              textAlign: "center",
+            }}
+          >
             <Typography>Client Verified</Typography>
             <br />
             <motion.div
@@ -154,7 +159,18 @@ function Ip() {
             damping: 30,
           }}
         >
-          {loaded}
+          <Box
+            sx={{
+              bgcolor: "#2e2e2e",
+              color: "white",
+
+              width: 300,
+              p: 10,
+              borderRadius: 5,
+            }}
+          >
+            {loaded}
+          </Box>
         </motion.div>
       </Box>
     </div>
