@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 import Script from "next/script";
 
-export default function ip() {
+export default function ip({ serverlist }) {
   const [list, setList] = useState([]);
   const [maplink, setmaplink] = useState();
 
@@ -74,8 +74,8 @@ export default function ip() {
       </Box>
       <Box sx={{ p: 5, bgcolor: "#222" }}>
         <Grid container spacing={4}>
-          {list.map((user) => (
-            <Grid item md={6} xs={12}>
+          {serverlist.map((user, i) => (
+            <Grid item md={6} xs={12} key={i}>
               <Box
                 sx={{
                   color: "white",
@@ -151,7 +151,7 @@ export default function ip() {
                       </Typography>
                     </Box>
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12}>
                     <Box
                       sx={{
                         textAlign: "center",
@@ -182,16 +182,18 @@ export default function ip() {
                         {user.attributes.user.longitude}
                       </Typography>
                       {user.attributes.user.latitude && (
-                        <iframe
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: `<iframe
                           width="300"
                           height="200"
-                          frameborder="0"
+                          frameBorder="0"
                           scrolling="no"
-                          marginheight="0"
-                          marginwidth="0"
-                          // src="https://maps.google.com/maps?f=q&amp;saddr=47.3768866,8.541694&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed"
-                          src={`https://maps.google.com/maps?f=q&amp;saddr=${user.attributes.user.latitude},${user.attributes.user.longitude}&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed`}
-                        ></iframe>
+                          loading="lazy"
+                          src="https://maps.google.com/maps?f=q&amp;saddr=${user.attributes.user.latitude},${user.attributes.user.longitude}&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed"
+                        ></iframe>`,
+                          }}
+                        ></div>
                       )}
                     </Box>
                   </Grid>
@@ -213,19 +215,15 @@ export default function ip() {
             </Grid>
           ))}
         </Grid>
-        {/* {maplink} */}
-        {/* <iframe
-          width="300"
-          height="200"
-          frameborder="0"
-          scrolling="no"
-          marginheight="0"
-          marginwidth="0"
-          // src="https://maps.google.com/maps?f=q&amp;saddr=37.718128,-122.083737&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed"
-          src={`https://maps.google.com/maps?f=q&amp;saddr=${user.attributes.user.latitude},${user.attributes.user.longitude}&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed`}
-          // ",-122.083737&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed"}
-        ></iframe> */}
       </Box>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
+  );
+  const serverlist = res.data.data.reverse();
+  return { props: { serverlist } };
 }
