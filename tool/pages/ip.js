@@ -31,21 +31,34 @@ export default function ip() {
   }, []);
   return (
     <div>
-      <Box sx={{ bgcolor: "#888", p: 1, m: 3, width: "50%", color: "white" }}>
+      <Box
+        sx={{
+          bgcolor: "#888",
+          p: 1,
+          m: 3,
+          width: "60%",
+          ml: "20%",
+          color: "white",
+        }}
+      >
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <Typography>Copy all data</Typography>{" "}
+            <Box sx={{ textAlign: "center", p: 1 }}>
+              <Typography>Copy all data</Typography>{" "}
+            </Box>
           </Grid>
           <Grid item xs={6}>
-            <Button
-              variant="contained"
-              color={"error"}
-              onClick={() => {
-                navigator.clipboard.writeText(JSON.stringify(list));
-              }}
-            >
-              Copy
-            </Button>
+            <Box sx={{ textAlign: "center", p: 1 }}>
+              <Button
+                variant="contained"
+                color={"error"}
+                onClick={() => {
+                  navigator.clipboard.writeText(JSON.stringify(list));
+                }}
+              >
+                Copy
+              </Button>
+            </Box>
           </Grid>
           <Grid item xs={12}>
             <Chip label={JSON.stringify(list)} />
