@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Check from "../components/Check";
+import React from "react";
 
 export default function Home() {
   return (

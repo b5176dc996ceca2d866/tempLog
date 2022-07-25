@@ -8,6 +8,7 @@ import { Box, Button, Typography, CircularProgress, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 
 function Ip() {
+  const router = useRouter();
   const [loaded, setLoaded] = useState(
     <Box>
       <Typography>Checking Client...</Typography>
@@ -93,43 +94,53 @@ function Ip() {
     create();
   }, [anew]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     redirect();
-  //   }, randomInt(2400, 2800));
-  // }, []);
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  const redirect = async () => {
+    try {
+      router.push("https://www.google.com");
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      redirect();
+    }, randomInt(2400, 2800));
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
       setLoaded(
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{
             type: "spring",
-            stiffness: 100,
+            stiffness: 50,
             damping: 30,
           }}
         >
           <Box>
             <Typography>Client Verified</Typography>
             <br />
-            <CheckBoxRoundedIcon color={"success"} sx={{ fontSize: 100 }} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 30,
+              }}
+            >
+              <CheckBoxRoundedIcon color={"success"} sx={{ fontSize: 100 }} />
+            </motion.div>
           </Box>
         </motion.div>
       );
     }, randomInt(1200, 1600));
   }, []);
-
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
-  // const redirect = async () => {
-  //   try {
-  //     router.push("https://www.google.com");
-  //   } catch (err) {}
-  // };
 
   return (
     <div>
