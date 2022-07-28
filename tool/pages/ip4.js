@@ -9,6 +9,7 @@ import {
   Grid,
   Stack,
   Chip,
+  Divider,
 } from "@mui/material";
 import Link from "next/link";
 import Script from "next/script";
@@ -39,8 +40,66 @@ export default function ip({ serverlist }) {
   }, []);
   return (
     <div>
-      <Box sx={{ pl: 5, pr: 5, bgcolor: "#444" }}>
-        <Grid container spacing={4}>
+      <Box sx={{ pl: 2, pr: 5, bgcolor: "#444" }}>
+        {/* <Grid container spacing={1}> */}
+        <Box
+          sx={{
+            backgroundColor: "#bbb",
+            p: 2,
+            borderRadius: 2,
+            border: 3,
+            borderColor: "black",
+            mt: 3,
+          }}
+        >
+          <Typography>All Notable</Typography>
+          {serverlist.map((user, i) => (
+            <div key={i}>
+              <Grid container>
+                {user.attributes?.isNotable && (
+                  <>
+                    <Grid item xs={12}>
+                      <Divider />
+                    </Grid>
+
+                    <Grid item md={4} xs={12}>
+                      <Typography>
+                        {"#"}
+                        {i} {user.attributes.user.flag.emoji}{" "}
+                        {user.attributes.time}
+                      </Typography>
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                      <Typography>
+                        {user.attributes.user.country},{" "}
+                        {user.attributes.user.city},{" "}
+                        {user.attributes.user.region},{" "}
+                        {user.attributes.user.postal}
+                      </Typography>
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                      <Typography>
+                        {user.attributes.createdAt.substring(11, 19)}
+                        {" on "}
+                        {user.attributes.createdAt.substring(5, 7)}
+                        {"/"}
+                        {user.attributes.createdAt.substring(8, 10)}
+                        {"/"}
+                        {user.attributes.createdAt.substring(0, 4)}{" "}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Divider />
+                    </Grid>
+                  </>
+                )}
+              </Grid>
+            </div>
+          ))}
+
+          {/* </Grid> */}
+        </Box>
+        <Grid container spacing={0}>
           {serverlist.map((user, i) => (
             <Grid item xs={12} key={i}>
               {user.attributes?.isNotable && (
@@ -48,11 +107,16 @@ export default function ip({ serverlist }) {
                   sx={{
                     backgroundColor: "#bbb",
                     p: 2,
+                    pt: 0,
                     borderRadius: 2,
                     border: 3,
                     borderColor: "black",
                   }}
                 >
+                  <Box sx={{ p: 1 }}>
+                    {"# "}
+                    {i}
+                  </Box>
                   <Grid container spacing={2}>
                     <Grid item md={6} xs={12}>
                       <Box
