@@ -9,6 +9,7 @@ import {
   Grid,
   Stack,
   Chip,
+  Container,
 } from "@mui/material";
 import Link from "next/link";
 import Script from "next/script";
@@ -19,17 +20,18 @@ export default function ip({ serverlist }) {
 
   useEffect(() => {
     if (!list) return;
-    setmaplink("rjeri");
+    setmaplink("");
   }, []);
 
   useEffect(() => {
     const create = async () => {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
+        // `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
         // `${process.env.NEXT_PUBLIC_AWS_API}` + "/"+`${process.env.NEXT_PUBLIC_QUERY}`
       );
 
-      // console.log(res.data);
+      console.log(res.data);
       setList(res.data.data.reverse());
 
       return;
@@ -72,43 +74,51 @@ export default function ip({ serverlist }) {
           </Grid>
         </Grid>
       </Box>
-      <Box sx={{ p: 5, bgcolor: "#222" }}>
+      <Box sx={{ pl: 5, pr: 5, bgcolor: "#ccc" }}>
+        <Box sx={{ textAlign: "center", p: 3, color: "#000" }}>
+          <Typography variant="h2">All logs</Typography>
+          <Link href="/ip4">
+            <Chip color="error" label={"View notable logs"} />
+          </Link>
+        </Box>
         <Grid container spacing={4}>
           {serverlist.map((user, i) => (
             <Grid item md={6} xs={12} key={i}>
               <Box
                 sx={{
-                  color: "white",
-                  borderRadius: 2,
-                  width: "50%",
-                  textAlign: "center",
-                }}
-              >
-                <Typography>
-                  {user.attributes.createdAt.substring(11, 19)}
-                  {" on "}
-                  {user.attributes.createdAt.substring(5, 7)}
-                  {"/"}
-                  {user.attributes.createdAt.substring(8, 10)}
-                  {"/"}
-                  {user.attributes.createdAt.substring(0, 4)}{" "}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  backgroundColor: "#444",
+                  backgroundColor: "#bbb",
                   p: 2,
                   borderRadius: 2,
+                  border: 3,
+                  borderColor: "black",
                 }}
               >
+                <Box
+                  sx={{
+                    color: "white",
+                    borderRadius: 2,
+                    width: "50%",
+                    textAlign: "center",
+                  }}
+                >
+                  <Typography>
+                    {user.attributes.createdAt.substring(11, 19)}
+                    {" on "}
+                    {user.attributes.createdAt.substring(5, 7)}
+                    {"/"}
+                    {user.attributes.createdAt.substring(8, 10)}
+                    {"/"}
+                    {user.attributes.createdAt.substring(0, 4)}{" "}
+                  </Typography>
+                </Box>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <Box
                       sx={{
                         p: 1,
                         // m: 1,
-                        bgcolor: "black",
-                        color: "#00b159",
+                        bgcolor: "#ccc",
+                        color: "#000",
                         textAlign: "center",
                         borderRadius: 2,
                       }}
@@ -118,32 +128,19 @@ export default function ip({ serverlist }) {
                       </Typography>
                     </Box>
                   </Grid>
-                  {/* <Grid item xs={12}>
-                    <Box
-                      sx={{
-                        bgcolor: "black",
-                        color: "#00aedb",
-                        textAlign: "center",
-                        borderRadius: 2,
-                        p: 1,
-                      }}
-                    >
-                      <Typography> {user.attributes.createdAt}</Typography>
-                    </Box>
-                  </Grid> */}
-
                   <Grid item xs={12} md={6}>
                     <Box
                       sx={{
                         textAlign: "center",
-                        bgcolor: "black",
-                        color: "#f37735",
+                        bgcolor: "#ccc",
+                        color: "#000",
                         borderRadius: 2,
                         p: 1,
+                        minHeight: 70,
                       }}
                     >
+                      {" "}
                       <Typography>
-                        {" "}
                         {user.attributes.user.country},{" "}
                         {user.attributes.user.city},{" "}
                         {user.attributes.user.region},{" "}
@@ -151,12 +148,31 @@ export default function ip({ serverlist }) {
                       </Typography>
                     </Box>
                   </Grid>
+                  <Grid item md={6} xs={12}>
+                    {user.attributes?.isNotable && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          minWidth: 50,
+                          minHeight: 70,
+                          bgcolor: "#4fa165",
+                          color: "white",
+                          borderRadius: 2,
+                        }}
+                      >
+                        <Typography>Notable</Typography>
+                      </Box>
+                    )}
+                  </Grid>
                   <Grid item xs={12}>
                     <Box
                       sx={{
                         textAlign: "center",
-                        bgcolor: "black",
-                        color: "#d11141",
+                        bgcolor: "#ccc",
+                        color: "#000",
                         borderRadius: 2,
                         p: 1,
                       }}
@@ -169,8 +185,8 @@ export default function ip({ serverlist }) {
                     <Box
                       sx={{
                         textAlign: "center",
-                        bgcolor: "black",
-                        color: "#ffc425",
+                        bgcolor: "#ccc",
+                        color: "#000",
                         borderRadius: 2,
                         p: 1,
                         m: 2,
@@ -222,7 +238,8 @@ export default function ip({ serverlist }) {
 
 export async function getServerSideProps() {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
+    // `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
   );
   const serverlist = res.data.data.reverse();
   return { props: { serverlist } };
