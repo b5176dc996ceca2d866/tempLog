@@ -95,12 +95,14 @@ export default function ip({ serverlist }) {
               >
                 <Box
                   sx={{
-                    color: "white",
+                    color: "black",
                     borderRadius: 2,
                     width: "50%",
                     textAlign: "center",
                   }}
                 >
+                  {"# "}
+                  {i}
                   <Typography>
                     {user.attributes.createdAt.substring(11, 19)}
                     {" on "}
@@ -150,21 +152,24 @@ export default function ip({ serverlist }) {
                   </Grid>
                   <Grid item md={6} xs={12}>
                     {user.attributes?.isNotable && (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          textAlign: "center",
-                          minWidth: 50,
-                          minHeight: 70,
-                          bgcolor: "#4fa165",
-                          color: "white",
-                          borderRadius: 2,
-                        }}
-                      >
-                        <Typography>Notable</Typography>
-                      </Box>
+                      <Link href={"/ip4"}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            textAlign: "center",
+                            minWidth: 50,
+                            minHeight: 70,
+                            bgcolor: "#4fa165",
+                            color: "white",
+                            borderRadius: 2,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <Typography>Notable</Typography>
+                        </Box>
+                      </Link>
                     )}
                   </Grid>
                   <Grid item xs={12}>
