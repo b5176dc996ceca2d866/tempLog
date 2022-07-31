@@ -84,8 +84,8 @@ function Ip() {
     const create = async () => {
       await axios
 
-        .post(`${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients", {
-          // .post(`${process.env.NEXT_PUBLIC_AWS_API}` + "/clients", {
+        // .post(`${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients", {
+        .post(`${process.env.NEXT_PUBLIC_AWS_API}` + "/clients", {
           data: {
             user: anew,
             time: anew.ip,

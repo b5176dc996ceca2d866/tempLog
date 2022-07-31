@@ -26,8 +26,8 @@ export default function ip({ serverlist }) {
   useEffect(() => {
     const create = async () => {
       const res = await axios.get(
-        // `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
+        `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
+        // `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
         // `${process.env.NEXT_PUBLIC_AWS_API}` + "/"+`${process.env.NEXT_PUBLIC_QUERY}`
       );
 
@@ -243,8 +243,8 @@ export default function ip({ serverlist }) {
 
 export async function getServerSideProps() {
   const res = await axios.get(
-    // `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
+    `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
+    // `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
   );
   const serverlist = res.data.data.reverse();
   return { props: { serverlist } };
