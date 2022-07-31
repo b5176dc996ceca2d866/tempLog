@@ -14,8 +14,8 @@ import {
 import Link from "next/link";
 import Script from "next/script";
 
-export default function ip({ serverlist }) {
-  const [list, setList] = useState([]);
+export default function Ip({ serverlist }) {
+  const [list, setList] = useState();
   const [maplink, setmaplink] = useState();
 
   useEffect(() => {

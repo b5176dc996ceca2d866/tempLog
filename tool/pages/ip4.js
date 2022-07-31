@@ -18,7 +18,7 @@ import Link from "next/link";
 import Script from "next/script";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function ip({ serverlist }) {
+export default function Ip2({ serverlist }) {
   const [list, setList] = useState([]);
   const [maplink, setmaplink] = useState();
 
