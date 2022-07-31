@@ -100,17 +100,19 @@ function Ip() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  // const redirect = async () => {
-  //   try {
-  //     router.push("https://www.google.com");
-  //   } catch (err) {}
-  // };
+  const redirect = async () => {
+    try {
+      router.push(
+        "https://www.crowdstrike.com/cybersecurity-101/distributed-denial-of-service-ddos-attacks/"
+      );
+    } catch (err) {}
+  };
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     redirect();
-  //   }, randomInt(2400, 2800));
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      redirect();
+    }, randomInt(2400, 2800));
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {

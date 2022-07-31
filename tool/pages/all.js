@@ -77,7 +77,7 @@ export default function Ip({ serverlist }) {
       <Box sx={{ pl: 5, pr: 5, bgcolor: "#ccc" }}>
         <Box sx={{ textAlign: "center", p: 3, color: "#000" }}>
           <Typography variant="h2">All logs</Typography>
-          <Link href="/ip4">
+          <Link href="/notable">
             <Chip color="error" label={"View notable logs"} />
           </Link>
         </Box>
@@ -152,7 +152,7 @@ export default function Ip({ serverlist }) {
                   </Grid>
                   <Grid item md={6} xs={12}>
                     {user.attributes?.isNotable && (
-                      <Link href={"/ip4"}>
+                      <Link href={"/notable"}>
                         <Box
                           sx={{
                             display: "flex",
