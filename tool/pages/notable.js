@@ -280,11 +280,11 @@ export default function Ip2({ serverlist }) {
                               m: 2,
                             }}
                           >
-                            <Typography variant={"caption"}>
+                            {/* <Typography variant={"caption"}>
                               {"https://www.google.com/maps/place/"}
                               {user.attributes.user.latitude},
                               {user.attributes.user.longitude}
-                            </Typography>
+                            </Typography> */}
                             {user.attributes.user.latitude && (
                               <div
                                 dangerouslySetInnerHTML={{
