@@ -13,10 +13,17 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  TextField,
+  Icon,
 } from "@mui/material";
 import Link from "next/link";
 import Script from "next/script";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Image from "next/image";
+import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
+import PestControlIcon from "@mui/icons-material/PestControl";
+import LeakAddIcon from "@mui/icons-material/LeakAdd";
+import bg from "../public/wires.jpg";
 
 export default function Ip2({ serverlist }) {
   const [list, setList] = useState([]);
@@ -44,7 +51,49 @@ export default function Ip2({ serverlist }) {
   }, []);
   return (
     <div>
-      <Box sx={{ pl: 2, pr: 5, bgcolor: "#444" }}>
+      <Box sx={{ pl: 2, pr: 5 }}>
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <Box
+              sx={{
+                backgroundColor: "#bbb",
+                p: 2,
+                borderRadius: 2,
+                border: 3,
+                borderColor: "black",
+                backgroundImage: `url(${bg.src})`,
+                mt: 3,
+                minHeight: 200,
+                wordWrap: "break-word",
+              }}
+            >
+              <Grid container>
+                <Grid item xs={12} md={6}>
+                  <Image src="/wires.jpg" height={200} width={200} />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box
+                    sx={{
+                      bgcolor: "black",
+                      textAlign: "center",
+                      p: 2,
+                      pt: 2,
+                      borderRadius: 2,
+                      color: "#ccc",
+                    }}
+                  >
+                    <Typography variant={"h5"}>Notable</Typography>
+                    <Link href={"/all"}>
+                      <Button variant={"contained"} color={"error"}>
+                        Back to all
+                      </Button>
+                    </Link>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+        </Grid>
         <Box
           sx={{
             backgroundColor: "#bbb",
@@ -62,7 +111,7 @@ export default function Ip2({ serverlist }) {
                 <Accordion
                   sx={{
                     m: 1,
-                    backgroundColor: "#ccc",
+                    // backgroundColor: "#ccc",
                     borderRadius: 2,
                     border: 1,
                     borderColor: "black",
@@ -73,9 +122,6 @@ export default function Ip2({ serverlist }) {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    <Grid item sx={12}>
-                      <Divider />
-                    </Grid>
                     <Grid container>
                       <Grid item md={2} xs={12}>
                         {"#"}
@@ -107,15 +153,15 @@ export default function Ip2({ serverlist }) {
                           {user.attributes.createdAt.substring(0, 4)}{" "}
                         </Typography>
                       </Grid>
-                      <Grid item xs={12}>
-                        <Divider />
-                      </Grid>
                     </Grid>
                   </AccordionSummary>{" "}
                   <AccordionDetails>
+                    <Box sx={{ width: "100%", pb: 3 }}>
+                      <Divider />
+                    </Box>
                     <Box
                       sx={{
-                        backgroundColor: "#bbb",
+                        backgroundColor: "#ccc",
                         p: 2,
                         borderRadius: 2,
                         border: 1,
@@ -128,7 +174,7 @@ export default function Ip2({ serverlist }) {
                             sx={{
                               p: 1,
                               // m: 1,
-                              bgcolor: "#ccc",
+                              bgcolor: "#fff",
                               color: "#111",
                               textAlign: "center",
                               borderRadius: 2,
@@ -150,7 +196,7 @@ export default function Ip2({ serverlist }) {
                           <Box
                             sx={{
                               textAlign: "center",
-                              bgcolor: "#ccc",
+                              bgcolor: "#fff",
                               color: "#111",
                               border: 1,
                               borderColor: "black",
@@ -178,7 +224,7 @@ export default function Ip2({ serverlist }) {
                           <Box
                             sx={{
                               textAlign: "center",
-                              bgcolor: "#ccc",
+                              bgcolor: "#fff",
                               color: "#111",
                               border: 1,
                               borderColor: "black",
@@ -203,7 +249,7 @@ export default function Ip2({ serverlist }) {
                           <Box
                             sx={{
                               textAlign: "center",
-                              bgcolor: "#ccc",
+                              bgcolor: "#fff",
                               color: "#111",
                               border: 1,
                               borderColor: "black",
@@ -225,7 +271,7 @@ export default function Ip2({ serverlist }) {
                           <Box
                             sx={{
                               textAlign: "center",
-                              bgcolor: "#ccc",
+                              bgcolor: "#fff",
                               color: "#111",
                               border: 1,
                               borderColor: "black",
@@ -259,7 +305,7 @@ export default function Ip2({ serverlist }) {
                           <Box
                             sx={{
                               textAlign: "left",
-                              bgcolor: "#ccc",
+                              bgcolor: "#fff",
                               color: "#000",
                               border: 1,
                               borderColor: "black",
@@ -269,14 +315,12 @@ export default function Ip2({ serverlist }) {
                               minHeight: 400,
                             }}
                           >
-                            <Box sx={{ color: "#aaa" }}>
-                              <Typography variant={"h5"}>
-                                Descripition
+                            <Chip label={"Descripition"} />
+                            <Box sx={{ p: 1 }}>
+                              <Typography>
+                                {user.attributes.description}
                               </Typography>
                             </Box>
-                            <Typography>
-                              {user.attributes.description}
-                            </Typography>
                           </Box>
                         </Grid>
                         <Grid item xs={12}>

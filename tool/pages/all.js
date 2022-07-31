@@ -38,27 +38,57 @@ export default function Ip({ serverlist }) {
     };
     create();
   }, []);
+
+  const downloadTxtFile = () => {
+    const element = document.createElement("a");
+    const file = new Blob([JSON.stringify(list)], {
+      type: "text/plain",
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = "IP_LOG: " + new Date();
+    document.body.appendChild(element);
+    element.click();
+  };
   return (
     <div>
-      <Box
-        sx={{
-          bgcolor: "#888",
-          p: 1,
-          m: 3,
-          width: "60%",
-          ml: "20%",
-          color: "white",
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Box sx={{ textAlign: "center", p: 1 }}>
-              <Typography>Copy all data</Typography>{" "}
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={{ textAlign: "center", p: 1 }}>
-              <Button
+      <Box sx={{ pl: 5, pr: 5, pt: 3 }}>
+        <Box
+          sx={{
+            textAlign: "center",
+            p: 3,
+            color: "#000",
+            bgcolor: "#ccc",
+            borderRadius: 2,
+            width: "50%",
+            m: "auto",
+            mb: 3,
+          }}
+        >
+          <Typography variant="h2">All logs</Typography>
+          <Link href="/notable">
+            <Chip color="error" label={"View notable logs"} />
+          </Link>
+        </Box>
+        <Box
+          sx={{
+            bgcolor: "#888",
+            p: 1,
+            m: 3,
+            width: "60%",
+            ml: "20%",
+            color: "white",
+            borderRadius: 2,
+          }}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Box sx={{ textAlign: "center", p: 2 }}>
+                <Chip label={"Download Data"} />
+              </Box>
+            </Grid>
+            <Grid item xs={6}>
+              <Box sx={{ textAlign: "center", p: 1 }}>
+                {/* <Button
                 variant="contained"
                 color={"error"}
                 onClick={() => {
@@ -66,30 +96,30 @@ export default function Ip({ serverlist }) {
                 }}
               >
                 Copy
-              </Button>
-            </Box>
+              </Button> */}
+                <Button
+                  variant="contained"
+                  color={"error"}
+                  onClick={downloadTxtFile}
+                >
+                  download
+                </Button>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Chip label={JSON.stringify(list)} />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Chip label={JSON.stringify(list)} />
-          </Grid>
-        </Grid>
-      </Box>
-      <Box sx={{ pl: 5, pr: 5, bgcolor: "#ccc" }}>
-        <Box sx={{ textAlign: "center", p: 3, color: "#000" }}>
-          <Typography variant="h2">All logs</Typography>
-          <Link href="/notable">
-            <Chip color="error" label={"View notable logs"} />
-          </Link>
         </Box>
         <Grid container spacing={4}>
           {serverlist.map((user, i) => (
             <Grid item md={6} xs={12} key={i}>
               <Box
                 sx={{
-                  backgroundColor: "#bbb",
+                  backgroundColor: "#ccc",
                   p: 2,
                   borderRadius: 2,
-                  border: 3,
+                  border: 1,
                   borderColor: "black",
                 }}
               >
@@ -119,10 +149,12 @@ export default function Ip({ serverlist }) {
                       sx={{
                         p: 1,
                         // m: 1,
-                        bgcolor: "#ccc",
+                        bgcolor: "#fff",
                         color: "#000",
                         textAlign: "center",
                         borderRadius: 2,
+                        border: 1,
+                        borderColor: "black",
                       }}
                     >
                       <Typography variant="h4">
@@ -134,11 +166,13 @@ export default function Ip({ serverlist }) {
                     <Box
                       sx={{
                         textAlign: "center",
-                        bgcolor: "#ccc",
+                        bgcolor: "#fff",
                         color: "#000",
                         borderRadius: 2,
                         p: 1,
                         minHeight: 70,
+                        border: 1,
+                        borderColor: "black",
                       }}
                     >
                       {" "}
@@ -161,7 +195,7 @@ export default function Ip({ serverlist }) {
                             textAlign: "center",
                             minWidth: 50,
                             minHeight: 70,
-                            bgcolor: "#4fa165",
+                            bgcolor: "#77858f",
                             color: "white",
                             borderRadius: 2,
                             cursor: "pointer",
@@ -176,10 +210,12 @@ export default function Ip({ serverlist }) {
                     <Box
                       sx={{
                         textAlign: "center",
-                        bgcolor: "#ccc",
+                        bgcolor: "#fff",
                         color: "#000",
                         borderRadius: 2,
                         p: 1,
+                        border: 1,
+                        borderColor: "black",
                       }}
                     >
                       <Typography>
@@ -190,11 +226,13 @@ export default function Ip({ serverlist }) {
                     <Box
                       sx={{
                         textAlign: "center",
-                        bgcolor: "#ccc",
+                        bgcolor: "#fff",
                         color: "#000",
                         borderRadius: 2,
                         p: 1,
                         m: 2,
+                        border: 1,
+                        borderColor: "black",
                       }}
                     >
                       <Typography variant={"caption"}>
@@ -206,7 +244,7 @@ export default function Ip({ serverlist }) {
                         <div
                           dangerouslySetInnerHTML={{
                             __html: `<iframe
-                          width="300"
+                          width="200"
                           height="200"
                           frameBorder="0"
                           scrolling="no"
