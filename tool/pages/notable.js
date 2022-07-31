@@ -32,7 +32,7 @@ export default function Ip2({ serverlist }) {
   useEffect(() => {
     if (!list) return;
     setmaplink("");
-  }, []);
+  }, [list]);
 
   useEffect(() => {
     const create = async () => {
@@ -69,7 +69,7 @@ export default function Ip2({ serverlist }) {
             >
               <Grid container>
                 <Grid item xs={12} md={6}>
-                  <Image src="/wires.jpg" height={200} width={200} />
+                  <Image src="/wires.jpg" alt="" height={200} width={200} />
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Box

@@ -66,7 +66,7 @@ function Ip() {
       } catch (err) {}
     };
     callAPI();
-  }, []);
+  }, [cl]);
   useEffect(() => {
     if (!info) return;
     const callAPI2 = async () => {
@@ -77,7 +77,7 @@ function Ip() {
       } catch (err) {}
     };
     callAPI2();
-  }, [info]);
+  }, [info, cl2]);
 
   useEffect(() => {
     if (!anew) return;
@@ -112,7 +112,7 @@ function Ip() {
     setTimeout(() => {
       redirect();
     }, randomInt(2400, 2800));
-  }, []);
+  }, [redirect]);
 
   useEffect(() => {
     setTimeout(() => {

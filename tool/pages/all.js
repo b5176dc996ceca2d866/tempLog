@@ -21,7 +21,7 @@ export default function Ip({ serverlist }) {
   useEffect(() => {
     if (!list) return;
     setmaplink("");
-  }, []);
+  }, [list]);
 
   useEffect(() => {
     const create = async () => {
