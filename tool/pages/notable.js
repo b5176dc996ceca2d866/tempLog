@@ -125,7 +125,7 @@ export default function Ip2({ serverlist }) {
                     <Grid container>
                       <Grid item md={2} xs={12}>
                         {"#"}
-                        {i}
+                        {user.id}
                       </Grid>
 
                       <Grid item md={2} xs={12}>

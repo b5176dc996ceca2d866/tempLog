@@ -132,7 +132,7 @@ export default function Ip({ serverlist }) {
                   }}
                 >
                   {"# "}
-                  {i}
+                  {user.id}
                   <Typography>
                     {user.attributes.createdAt.substring(11, 19)}
                     {" on "}
