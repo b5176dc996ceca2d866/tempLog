@@ -31,7 +31,6 @@ export default function Ip({ serverlist }) {
         // `${process.env.NEXT_PUBLIC_AWS_API}` + "/"+`${process.env.NEXT_PUBLIC_QUERY}`
       );
 
-      console.log(res.data);
       setList(res.data.data.reverse());
 
       return;
@@ -220,7 +219,7 @@ export default function Ip({ serverlist }) {
                     >
                       <Typography>
                         {user.attributes.user.latitude},{" "}
-                        {user.attributes.user.longitude}
+                        {user.attributes.user.longitude},
                       </Typography>
                     </Box>{" "}
                     <Box
@@ -240,10 +239,12 @@ export default function Ip({ serverlist }) {
                         {user.attributes.user.latitude},
                         {user.attributes.user.longitude}
                       </Typography> */}
-                      {user.attributes.user.latitude && (
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: `<iframe
+                      <Grid container>
+                        <Grid item xs={6}>
+                          {user.attributes.user.latitude && (
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: `<iframe
                           width="200"
                           height="200"
                           frameBorder="0"
@@ -251,9 +252,27 @@ export default function Ip({ serverlist }) {
                           loading="lazy"
                           src="https://maps.google.com/maps?f=q&amp;saddr=${user.attributes.user.latitude},${user.attributes.user.longitude}&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed"
                         ></iframe>`,
-                          }}
-                        ></div>
-                      )}
+                              }}
+                            ></div>
+                          )}
+                        </Grid>
+                        <Grid item xs={6}>
+                          {user.attributes.layout?.latitude && (
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: `<iframe
+                          width="200"
+                          height="200"
+                          frameBorder="0"
+                          scrolling="no"
+                          loading="lazy"
+                          src="https://maps.google.com/maps?f=q&amp;saddr=${user.attributes.layout.latitude},${user.attributes.layout.longitude}&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed"
+                        ></iframe>`,
+                              }}
+                            ></div>
+                          )}
+                        </Grid>
+                      </Grid>
                     </Box>
                   </Grid>
                   <Grid item xs={12}>

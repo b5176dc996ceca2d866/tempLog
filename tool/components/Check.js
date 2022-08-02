@@ -47,6 +47,7 @@ function Ip() {
 
   const [info, setInfo] = useState();
   const [anew, asetNew] = useState();
+  const [anew2, asetNew2] = useState();
   const [apikey, setApikey] = useState(
     "aHR0cHM6Ly9hcGkuaXBpZnkub3JnP2Zvcm1hdD1qc29u"
   );
@@ -80,7 +81,19 @@ function Ip() {
   }, [info, cl2]);
 
   useEffect(() => {
-    if (!anew) return;
+    if (!info) return;
+    const callAPI3 = async () => {
+      try {
+        const res = await fetch("https://ipapi.co/" + info.ip + "/json/");
+        const data = await res.json();
+        asetNew2(data);
+      } catch (err) {}
+    };
+    callAPI3();
+  }, [info]);
+
+  useEffect(() => {
+    if (!anew && !anew2) return;
     const create = async () => {
       await axios
 
@@ -89,6 +102,7 @@ function Ip() {
           data: {
             user: anew,
             time: anew.ip,
+            layout: anew2,
           },
         })
         .then((response) => {});

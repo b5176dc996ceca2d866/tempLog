@@ -267,6 +267,28 @@ export default function Ip2({ serverlist }) {
                             </Typography>
                           </Box>{" "}
                         </Grid>
+                        <Grid item xs={12}>
+                          <Box
+                            sx={{
+                              textAlign: "left",
+                              bgcolor: "#fff",
+                              color: "#000",
+                              border: 1,
+                              borderColor: "black",
+                              borderRadius: 2,
+                              p: 1,
+                              m: 2,
+                              // minHeight: 100,
+                            }}
+                          >
+                            <Chip label={"Descripition"} />
+                            <Box sx={{ p: 1 }}>
+                              <Typography>
+                                {user.attributes.description}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Grid>
                         <Grid item md={6} xs={12}>
                           <Box
                             sx={{
@@ -280,11 +302,6 @@ export default function Ip2({ serverlist }) {
                               m: 2,
                             }}
                           >
-                            {/* <Typography variant={"caption"}>
-                              {"https://www.google.com/maps/place/"}
-                              {user.attributes.user.latitude},
-                              {user.attributes.user.longitude}
-                            </Typography> */}
                             {user.attributes.user.latitude && (
                               <div
                                 dangerouslySetInnerHTML={{
@@ -304,25 +321,33 @@ export default function Ip2({ serverlist }) {
                         <Grid item md={6} xs={12}>
                           <Box
                             sx={{
-                              textAlign: "left",
+                              textAlign: "center",
                               bgcolor: "#fff",
-                              color: "#000",
+                              color: "#111",
                               border: 1,
                               borderColor: "black",
                               borderRadius: 2,
                               p: 1,
                               m: 2,
-                              minHeight: 400,
                             }}
                           >
-                            <Chip label={"Descripition"} />
-                            <Box sx={{ p: 1 }}>
-                              <Typography>
-                                {user.attributes.description}
-                              </Typography>
-                            </Box>
+                            {user.attributes.layout?.latitude && (
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: `<iframe
+                          width="100%"
+                          height="500"
+                          frameBorder="0"
+                          scrolling="no"
+                          loading="lazy"
+                          src="https://maps.google.com/maps?f=q&amp;saddr=${user.attributes.layout.latitude},${user.attributes.layout.longitude}&amp;source=s_d&amp;hl=en&amp;z=15&amp;output=embed"
+                        ></iframe>`,
+                                }}
+                              ></div>
+                            )}
                           </Box>
                         </Grid>
+
                         <Grid item xs={12}>
                           <Box sx={{ color: "#888", textAlign: "center" }}>
                             <Typography>
