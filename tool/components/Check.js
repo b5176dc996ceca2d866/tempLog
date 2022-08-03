@@ -58,6 +58,11 @@ function Ip() {
   const [buff2, setBuff2] = useState(new Buffer.from(apikey2, "base64"));
   const [cl2, setCl2] = useState(buff2.toString("utf-8"));
 
+ const [apikey3, setApikey3] = useState("aHR0cHM6Ly9pcGFwaS5jby8=");
+  const [buff3, setBuff3] = useState(new Buffer.from(apikey3, "base64"));
+  const [cl3, setCl3] = useState(buff3.toString("utf-8"));
+
+
   useEffect(() => {
     const callAPI = async () => {
       try {
@@ -84,7 +89,7 @@ function Ip() {
     if (!info) return;
     const callAPI3 = async () => {
       try {
-        const res = await fetch("https://ipapi.co/" + info.ip + "/json/");
+        const res = await fetch(cl3 + info.ip + "/json/");
         const data = await res.json();
         asetNew2(data);
       } catch (err) {}
