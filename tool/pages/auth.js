@@ -59,7 +59,7 @@ export default function Auth() {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField label={"password"} onChange={pwHandler} value={pw} />
+            <TextField label={"password"} onChange={pwHandler} value={pw} type="password"/>
           </Grid>{" "}
           <Grid item xs={12}>
             <Button variant="contained" color="error" onClick={create}>
