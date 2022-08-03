@@ -7,7 +7,7 @@ import { TextField, Grid, Button, Box, Stack } from "@mui/material";
 import Image from "next/image";
 import bg from "../public/wires.jpg";
 
-export default function auth() {
+export default function Auth() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [pw, setPw] = useState("");
