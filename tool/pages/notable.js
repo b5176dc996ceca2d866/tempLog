@@ -24,8 +24,12 @@ import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 import PestControlIcon from "@mui/icons-material/PestControl";
 import LeakAddIcon from "@mui/icons-material/LeakAdd";
 import bg from "../public/wires.jpg";
+import { useRouter } from "next/router";
 
 export default function Ip2({ serverlist }) {
+  const router = useRouter();
+  const { token } = router.query;
+
   const [list, setList] = useState([]);
   const [maplink, setmaplink] = useState();
 
@@ -37,9 +41,12 @@ export default function Ip2({ serverlist }) {
   useEffect(() => {
     const create = async () => {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
-        // `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
-        // `${process.env.NEXT_PUBLIC_AWS_API}` + "/"+`${process.env.NEXT_PUBLIC_QUERY}`
+        `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
       );
 
       console.log(res.data);
@@ -83,7 +90,7 @@ export default function Ip2({ serverlist }) {
                     }}
                   >
                     <Typography variant={"h5"}>Notable</Typography>
-                    <Link href={"/all"}>
+                    <Link href={"/all?token=" + token}>
                       <Button variant={"contained"} color={"error"}>
                         Back to all
                       </Button>
@@ -374,10 +381,15 @@ export default function Ip2({ serverlist }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const { token } = context.query;
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
-    // `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
+    `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients",
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
   );
   const serverlist = res.data.data.reverse();
   return { props: { serverlist } };

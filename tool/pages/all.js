@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -15,6 +16,9 @@ import Link from "next/link";
 import Script from "next/script";
 
 export default function Ip({ serverlist }) {
+  const router = useRouter();
+  const { token } = router.query;
+
   const [list, setList] = useState();
   const [maplink, setmaplink] = useState();
 
@@ -26,9 +30,12 @@ export default function Ip({ serverlist }) {
   useEffect(() => {
     const create = async () => {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
-        // `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
-        // `${process.env.NEXT_PUBLIC_AWS_API}` + "/"+`${process.env.NEXT_PUBLIC_QUERY}`
+        `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
       );
 
       setList(res.data.data.reverse());
@@ -64,7 +71,7 @@ export default function Ip({ serverlist }) {
           }}
         >
           <Typography variant="h2">All logs</Typography>
-          <Link href="/notable">
+          <Link href={"/notable?token=" + token}>
             <Chip color="error" label={"View notable logs"} />
           </Link>
         </Box>
@@ -298,10 +305,15 @@ export default function Ip({ serverlist }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const { token } = context.query;
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients"
-    // `${process.env.NEXT_PUBLIC_STRAPI_URL}` + "/clients"
+    `${process.env.NEXT_PUBLIC_AWS_API}` + "/clients",
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
   );
   const serverlist = res.data.data.reverse();
   return { props: { serverlist } };
